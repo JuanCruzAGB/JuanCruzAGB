@@ -29,9 +29,9 @@ export class Class {
         if (typeof props === 'string') {
             this.props[props] = value;
         } else if (Object.entries(props)) {
-            for (const key in Object.entries(props)) {
-                if (Object.hasOwnProperty.call(Object.entries(props), key)) {
-                    const value = Object.entries(props)[key];
+            for (const key in props) {
+                if (Object.hasOwnProperty.call(props, key)) {
+                    const value = props[key];
                     this.props[key] = value;
                 }
             }
@@ -78,9 +78,9 @@ export class Class {
         if (typeof states === 'string') {
             this.states[states] = value;
         } else if (Object.entries(states)) {
-            for (const key in Object.entries(states)) {
-                if (Object.hasOwnProperty.call(Object.entries(states), key)) {
-                    const value = Object.entries(states)[key];
+            for (const key in states) {
+                if (Object.hasOwnProperty.call(states, key)) {
+                    const value = states[key];
                     this.states[key] = value;
                 }
             }
