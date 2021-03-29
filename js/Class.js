@@ -8,12 +8,12 @@ export class Class {
     /**
      * * Creates an instance of Class.
      * @param {object} [props] Class properties.
-     * @param {object} [states] Class states
+     * @param {object} [state] Class state
      * @memberof Class
      */
-    constructor (props, states) {
+    constructor (props = {}, state = {}) {
         this.setProps(props);
-        this.setStates(states);
+        this.setState(state);
     }
 
     /**
@@ -22,7 +22,7 @@ export class Class {
      * @param {*} [value=null] Class property value.
      * @memberof Class
      */
-    setProps (props, value = null) {
+    setProps (props = {}, value = null) {
         if (!this.hasOwnProperty('props')) {
             this.props = {};
         }
@@ -66,22 +66,22 @@ export class Class {
     }
 
     /**
-     * * Set the Class states.
-     * @param {object|string} props Class states.
+     * * Set the Class state.
+     * @param {object|string} props Class state.
      * @param {*} [value=null] Class state value.
      * @memberof Class
      */
-    setStates (states, value = null) {
-        if (!this.hasOwnProperty('states')) {
-            this.states = {};
+    setState (state = {}, value = null) {
+        if (!this.hasOwnProperty('state')) {
+            this.state = {};
         }
-        if (typeof states === 'string') {
-            this.states[states] = value;
-        } else if (Object.entries(states)) {
-            for (const key in states) {
-                if (Object.hasOwnProperty.call(states, key)) {
-                    const value = states[key];
-                    this.states[key] = value;
+        if (typeof state === 'string') {
+            this.state[state] = value;
+        } else if (Object.entries(state)) {
+            for (const key in state) {
+                if (Object.hasOwnProperty.call(state, key)) {
+                    const value = state[key];
+                    this.state[key] = value;
                 }
             }
         } else {
@@ -99,7 +99,7 @@ export class Class {
     hasState(name){
         if (name !== undefined) {
             if (typeof name === 'string') {
-                if (this.states.hasOwnProperty(name)) {
+                if (this.state.hasOwnProperty(name)) {
                     return true;
                 } else {
                     return false;
@@ -123,7 +123,7 @@ export class Class {
             if (document.querySelector(query)) {
                 this.html = document.querySelector(query);
             } else {
-                console.warn(`HTML query: ${ query } did not find matches`);
+                console.warn(`${ query } did not find matches`);
             }
         } else if (typeof query === 'object') {
             this.html = query;
@@ -197,7 +197,7 @@ export class Class {
     hasCallback (name) {
         if (name !== undefined) {
             if (typeof name === 'string') {
-                if (this.callback.hasOwnProperty(name)) {
+                if (this.callbacks.hasOwnProperty(name)) {
                     return true;
                 } else {
                     return false;
