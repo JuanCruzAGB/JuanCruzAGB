@@ -47,20 +47,6 @@ import Class from "./Class.js";
     }
 
     /**
-     * * Append an HTML Element.
-     * @param {HTMLElement} HTML New child.
-     * @memberof Html
-     */
-    appendChild (HTML = false) {
-        if (HTML) {
-            this.html.appendChild(HTML);
-        }
-        if (!HTML) {
-            console.error("HTML Element child is required");
-        }
-    }
-
-    /**
      * * Creates the HTML Element.
      * @param {string} [nodeName='div'] HTML Element node name.
      * @param {HTMLElement} [innerHTML=false] HTML Element inner HTML.
@@ -82,6 +68,29 @@ import Class from "./Class.js";
     }
 
     /**
+     * * Removes the HTML Element.
+     * @memberof Html
+     */
+    removeHTML () {
+        const parentNode = this.html.parentNode;
+        parentNode.removeChild(this.html);
+    }
+
+    /**
+     * * Append an HTML Element.
+     * @param {HTMLElement} HTML New child.
+     * @memberof Html
+     */
+    appendChild (HTML = false) {
+        if (HTML) {
+            this.html.appendChild(HTML);
+        }
+        if (!HTML) {
+            console.error("HTML Element child is required");
+        }
+    }
+
+    /**
      * * Insert an HTML Element before another.
      * @param {HTMLElement} newHTML New child.
      * @param {HTMLElement} oldHTML New child.
@@ -96,6 +105,20 @@ import Class from "./Class.js";
         }
         if (!oldHTML) {
             console.error("HTML Element new child is required");
+        }
+    }
+
+    /**
+     * * Removes an HTML Element.
+     * @param {HTMLElement} HTML Child.
+     * @memberof Html
+     */
+    removeChild (HTML = false) {
+        if (HTML) {
+            this.html.removeChild(HTML);
+        }
+        if (!HTML) {
+            console.error("HTML Element child is required");
         }
     }
 
