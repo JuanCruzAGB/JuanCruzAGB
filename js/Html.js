@@ -22,26 +22,36 @@ import Class from "./Class.js";
     /**
      * * Set a HTML Element attribute.
      * @param {string|array} name Attribute name
-     * @param {boolean} value Attribute value
+     * @param {string|boolean} value Attribute value
      * @memberof Html
      */
-    setAttribute (name = false, value = false) {
-        if (name && value) {
+    setAttribute (name, value) {
+        if (name !== undefined && value !== undefined) {
             switch (typeof name) {
                 case 'object':
                     for (const attribute of name) {
-                        this.html.setAttribute(attribute.name, attribute.value);
+                        if (typeof attribute.value !== 'boolean') {
+                            this.html.setAttribute(attribute.name, attribute.value);
+                        }
+                        if (typeof attribute.value === 'boolean' && value) {
+                            this.html.setAttribute(name, '');
+                        }
                     }
                     break;
                 default:
-                    this.html.setAttribute(name, value);
+                    if (typeof value !== 'boolean') {
+                        this.html.setAttribute(name, value);
+                    }
+                    if (typeof value === 'boolean' && value) {
+                        this.html.setAttribute(name, '');
+                    }
                     break;
             }
         }
-        if (!name) {
+        if (name === undefined) {
             console.error("HTML Element attribute name is required");
         }
-        if (!value) {
+        if (value === undefined) {
             console.error("HTML Element attribute value is required");
         }
     }
@@ -82,10 +92,13 @@ import Class from "./Class.js";
      * @memberof Html
      */
     appendChild (HTML = false) {
-        if (HTML) {
+        if (typeof HTML === 'object') {
             this.html.appendChild(HTML);
         }
-        if (!HTML) {
+        if (typeof HTML === 'string') {
+            this.html.innerHTML = HTML;
+        }
+        if (typeof HTML === 'boolean') {
             console.error("HTML Element child is required");
         }
     }
