@@ -13,10 +13,12 @@ import Class from "./Class.js";
      * * Creates an instance of Html.
      * @param {object} [props] Html properties.
      * @param {object} [state] Html state
+     * @param {object} [callbacks] Html callbacks
      * @memberof Html
      */
-    constructor (props = {}, state = {}) {
+    constructor (props = {}, state = {}, callbacks = {}) {
         super({ ...props }, { ...state });
+        this.setCallbacks({ ...callbacks });
     }
 
     /**
@@ -64,7 +66,7 @@ import Class from "./Class.js";
      */
     createHTML (nodeName = 'div', innerHTML = false) {
         this.setHTML(document.createElement(nodeName.toUpperCase()));
-        if (this.hasProp('id')) {
+        if (this.hasProp('id') && (this.hasState('id') && this.state.id)) {
             this.html.id = this.props.id;
         }
         if (innerHTML) {
@@ -152,6 +154,54 @@ import Class from "./Class.js";
         if (!name) {
             console.error("State name is required");
         }
+    }
+
+    /**
+     * * Html change callback.
+     * @param {*} [params={}] Change callback function optional params
+     * @memberof Html
+     */
+    change (params = {}) {
+        this.execute('change', {
+            element: this,
+            ...(Object.keys(params).length ? { ...this.callbacks.change.params, ...params } : { ...this.callbacks.change.params }),
+        });
+    }
+
+    /**
+     * * Html click callback.
+     * @param {*} [params={}] Click callback function optional params
+     * @memberof Html
+     */
+    click (params = {}) {
+        this.execute('click', {
+            element: this,
+            ...(Object.keys(params).length ? { ...this.callbacks.click.params, ...params } : { ...this.callbacks.click.params }),
+        });
+    }
+
+    /**
+     * * Html focus out callback.
+     * @param {*} [params={}] Foucout callback function optional params
+     * @memberof Html
+     */
+    focusout (params = {}) {
+        this.execute('focusout', {
+            element: this,
+            ...(Object.keys(params).length ? { ...this.callbacks.focusout.params, ...params } : { ...this.callbacks.focusout.params })
+        });
+    }
+
+    /**
+     * * Html submit callback.
+     * @param {*} [params={}] Submit callback function optional params
+     * @memberof Html
+     */
+    submit (params = {}) {
+        this.execute('default', {
+            element: this,
+            ...(Object.keys(params).length ? { ...this.callbacks.submit.params, ...params } : { ...this.callbacks.submit.params })
+        });
     }
 }
 
