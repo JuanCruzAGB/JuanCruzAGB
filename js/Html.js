@@ -54,7 +54,34 @@ import Class from "./Class.js";
             console.error("HTML Element attribute name is required");
         }
         if (value === undefined) {
-            console.error("HTML Element attribute value is required");
+            console.error(`HTML Element attribute value is required`);
+        }
+    }
+
+    /**
+     * * Removes a HTML Element attribute.
+     * @param {string|array} name Attribute name
+     * @memberof Html
+     */
+    removeAttribute (name) {
+        if (name !== undefined) {
+            switch (typeof name) {
+                case 'object':
+                    for (const attribute of name) {
+                        if (this.html.hasAttribute(attribute)) {
+                            this.html.removeAttribute(attribute);
+                        }
+                    }
+                    break;
+                default:
+                    if (this.html.hasAttribute(name)) {
+                        this.html.removeAttribute(name);
+                    }
+                    break;
+            }
+        }
+        if (name === undefined) {
+            console.error("HTML Element attribute name is required");
         }
     }
 
