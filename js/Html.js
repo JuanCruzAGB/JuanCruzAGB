@@ -30,22 +30,22 @@ import Class from "./Class.js";
     setAttribute (name, value) {
         if (name !== undefined && value !== undefined) {
             switch (typeof name) {
-                case 'object':
+                case "object":
                     for (const attribute of name) {
-                        if (typeof attribute.value !== 'boolean') {
+                        if (typeof attribute.value !== "boolean") {
                             this.html.setAttribute(attribute.name, attribute.value);
                         }
-                        if (typeof attribute.value === 'boolean' && value) {
-                            this.html.setAttribute(name, '');
+                        if (typeof attribute.value === "boolean" && value) {
+                            this.html.setAttribute(name, "");
                         }
                     }
                     break;
                 default:
-                    if (typeof value !== 'boolean') {
+                    if (typeof value !== "boolean") {
                         this.html.setAttribute(name, value);
                     }
-                    if (typeof value === 'boolean' && value) {
-                        this.html.setAttribute(name, '');
+                    if (typeof value === "boolean" && value) {
+                        this.html.setAttribute(name, "");
                     }
                     break;
             }
@@ -66,7 +66,7 @@ import Class from "./Class.js";
     removeAttribute (name) {
         if (name !== undefined) {
             switch (typeof name) {
-                case 'object':
+                case "object":
                     for (const attribute of name) {
                         if (this.html.hasAttribute(attribute)) {
                             this.html.removeAttribute(attribute);
@@ -87,19 +87,27 @@ import Class from "./Class.js";
 
     /**
      * * Creates the HTML Element.
-     * @param {string} [nodeName='div'] HTML Element node name.
+     * @param {string} [nodeName="div"] HTML Element node name.
      * @param {HTMLElement} [innerHTML=false] HTML Element inner HTML.
      * @memberof Html
      */
-    createHTML (nodeName = 'div', innerHTML = false) {
+    createHTML (nodeName = "div", innerHTML = false) {
         this.setHTML(document.createElement(nodeName.toUpperCase()));
-        if (this.hasProp('id') && (this.hasState('id') && this.state.id)) {
+        if (this.hasProp("id") && (this.hasState("id") && this.state.id)) {
             this.html.id = this.props.id;
+        }
+        if (this.hasProp("dataset")) {
+            for (const key in this.props.dataset) {
+                if (Object.hasOwnProperty.call(this.props.dataset, key)) {
+                    const value = this.props.dataset[key];
+                    this.html.setAttribute(`data-${ key }`, value);
+                }
+            }
         }
         if (innerHTML) {
             this.html.appendChild(innerHTML);
         }
-        if (this.hasProp('classes')) {
+        if (this.hasProp("classes")) {
             for (const className of this.props.classes) {
                 this.html.classList.add(className);
             }
@@ -121,13 +129,13 @@ import Class from "./Class.js";
      * @memberof Html
      */
     appendChild (HTML = false) {
-        if (typeof HTML === 'object') {
+        if (typeof HTML === "object") {
             this.html.appendChild(HTML);
         }
-        if (typeof HTML === 'string') {
+        if (typeof HTML === "string") {
             this.html.innerHTML = HTML;
         }
-        if (typeof HTML === 'boolean') {
+        if (typeof HTML === "boolean") {
             console.error("HTML Element child is required");
         }
     }
@@ -189,7 +197,7 @@ import Class from "./Class.js";
      * @memberof Html
      */
     change (params = {}) {
-        this.execute('change', {
+        this.execute("change", {
             element: this,
             ...(Object.keys(params).length ? { ...this.callbacks.change.params, ...params } : { ...this.callbacks.change.params }),
         });
@@ -201,7 +209,7 @@ import Class from "./Class.js";
      * @memberof Html
      */
     click (params = {}) {
-        this.execute('click', {
+        this.execute("click", {
             element: this,
             ...(Object.keys(params).length ? { ...this.callbacks.click.params, ...params } : { ...this.callbacks.click.params }),
         });
@@ -213,7 +221,7 @@ import Class from "./Class.js";
      * @memberof Html
      */
     focusout (params = {}) {
-        this.execute('focusout', {
+        this.execute("focusout", {
             element: this,
             ...(Object.keys(params).length ? { ...this.callbacks.focusout.params, ...params } : { ...this.callbacks.focusout.params })
         });
@@ -225,7 +233,7 @@ import Class from "./Class.js";
      * @memberof Html
      */
     submit (params = {}) {
-        this.execute('default', {
+        this.execute("default", {
             element: this,
             ...(Object.keys(params).length ? { ...this.callbacks.submit.params, ...params } : { ...this.callbacks.submit.params })
         });
