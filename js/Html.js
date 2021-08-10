@@ -223,7 +223,7 @@ import Class from "./Class.js";
     focusout (params = {}) {
         this.execute("focusout", {
             element: this,
-            ...(Object.keys(params).length ? { ...this.callbacks.focusout.params, ...params } : { ...this.callbacks.focusout.params })
+            ...(Object.keys(params).length ? { ...this.callbacks.focusout.params, ...params } : { ...this.callbacks.focusout.params }),
         });
     }
 
@@ -235,7 +235,7 @@ import Class from "./Class.js";
     submit (params = {}) {
         this.execute("default", {
             element: this,
-            ...(Object.keys(params).length ? { ...this.callbacks.submit.params, ...params } : { ...this.callbacks.submit.params })
+            ...(Object.keys(params).length ? { ...this.callbacks.submit.params, ...params } : { ...this.callbacks.submit.params }),
         });
     }
 }
