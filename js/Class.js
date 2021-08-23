@@ -23,10 +23,10 @@ export class Class {
      * @memberof Class
      */
     setProps (props = {}, value = null) {
-        if (!this.hasOwnProperty('props')) {
+        if (!this.hasOwnProperty("props")) {
             this.props = {};
         }
-        if (typeof props === 'string') {
+        if (typeof props === "string") {
             this.props[props] = value;
         } else if (Object.entries(props)) {
             for (const key in props) {
@@ -36,7 +36,7 @@ export class Class {
                 }
             }
         } else {
-            console.warn('You are not setting any prop');
+            console.warn("You are not setting any prop");
         }
     }
 
@@ -49,19 +49,19 @@ export class Class {
      */
     hasProp (name) {
         if (name !== undefined) {
-            if (typeof name === 'string') {
+            if (typeof name === "string") {
                 if (this.props.hasOwnProperty(name)) {
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                console.error('Prop name must be a string');
-                throw 'Prop name must be a string';
+                console.error("Prop name must be a string");
+                throw new Error("Prop name must be a string");
             }
         } else {
-            console.error('Prop name is required');
-            throw 'Prop name is required';
+            console.error("Prop name is required");
+            throw new Error("Prop name is required");
         }
     }
 
@@ -72,10 +72,10 @@ export class Class {
      * @memberof Class
      */
     setState (state = {}, value = null) {
-        if (!this.hasOwnProperty('state')) {
+        if (!this.hasOwnProperty("state")) {
             this.state = {};
         }
-        if (typeof state === 'string') {
+        if (typeof state === "string") {
             this.state[state] = value;
         } else if (Object.entries(state)) {
             for (const key in state) {
@@ -85,7 +85,7 @@ export class Class {
                 }
             }
         } else {
-            console.warn('You are not setting any state');
+            console.warn("You are not setting any state");
         }
     }
 
@@ -98,19 +98,19 @@ export class Class {
      */
     hasState(name){
         if (name !== undefined) {
-            if (typeof name === 'string') {
+            if (typeof name === "string") {
                 if (this.state.hasOwnProperty(name)) {
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                console.error('State name must be a string');
-                throw 'State name must be a string';
+                console.error("State name must be a string");
+                throw new Error("State name must be a string");
             }
         } else {
-            console.error('State name is required');
-            throw 'State name is required';
+            console.error("State name is required");
+            throw new Error("State name is required");
         }
     }
 
@@ -119,17 +119,17 @@ export class Class {
      * @memberof Class
      */
     setHTML (query) {
-        if (typeof query === 'string') {
+        if (typeof query === "string") {
             if (document.querySelector(query)) {
                 this.html = document.querySelector(query);
             } else {
                 console.warn(`${ query } did not find matches`);
             }
-        } else if (typeof query === 'object') {
+        } else if (typeof query === "object") {
             this.html = query;
         } else {
-            console.error('Class HTML Element is required');
-            throw 'Class HTML Element is required';
+            console.error("Class HTML Element is required");
+            throw new Error("Class HTML Element is required");
         }
     }
 
@@ -150,8 +150,8 @@ export class Class {
             if (Object.hasOwnProperty.call(callbacks, name)) {
                 const callback = callbacks[name];
                 this.callbacks[name] = {
-                    function: (callback.hasOwnProperty('function') ? callback.function : (params) => { console.log(params); }),
-                    params: (callback.hasOwnProperty('params') ? callback.params : {}),
+                    function: (callback.hasOwnProperty("function") ? callback.function : (params) => { console.log(params); }),
+                    params: (callback.hasOwnProperty("params") ? callback.params : {}),
                 };
             }
         }
@@ -164,7 +164,7 @@ export class Class {
      * @memberof Class
      */
     execute (name, params = {}) {
-        if (typeof name === 'string') {
+        if (typeof name === "string") {
             if (this.callbacks.hasOwnProperty(name)) {
                 if (Object.entries(params)) {
                     params = {
@@ -178,12 +178,12 @@ export class Class {
                 }
                 this.callbacks[name].function(params);
             } else {
-                console.error('Class callback was not found');
-                throw 'Class callback was not found';
+                console.error("Class callback was not found");
+                throw new Error("Class callback was not found");
             }
         } else {
-            console.error('Class callback name is required');
-            throw 'Class callback name is required';
+            console.error("Class callback name is required");
+            throw new Error("Class callback name is required");
         }
     }
 
@@ -196,19 +196,19 @@ export class Class {
      */
     hasCallback (name) {
         if (name !== undefined) {
-            if (typeof name === 'string') {
+            if (typeof name === "string") {
                 if (this.callbacks.hasOwnProperty(name)) {
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                console.error('Callback name must be a string');
-                throw 'Callback name must be a string';
+                console.error("Callback name must be a string");
+                throw new Error("Callback name must be a string");
             }
         } else {
-            console.error('Callback name is required');
-            throw 'Callback name is required';
+            console.error("Callback name is required");
+            throw new Error("Callback name is required");
         }
     }
 }
